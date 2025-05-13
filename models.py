@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from database import db 
 
 class User(db.Model):
