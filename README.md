@@ -8,4 +8,7 @@
 - .venv\Scripts\activate
 
 ## Instalar dependencias
-- pip install fastapi uvicorn sqlalchemy sqlite
+- pip install fastapi uvicorn sqlalchemy sqlite<br>
+  o <br>
+- pip install -r requirements.txt
+
