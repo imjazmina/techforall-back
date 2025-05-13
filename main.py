@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from models import User
-from database import engine, Base
+from database import engine, db
 
 app = FastAPI()
 
 # Crea las tablas
-Base.metadata.create_all(bind=engine)
+db.metadata.create_all(bind=engine)
