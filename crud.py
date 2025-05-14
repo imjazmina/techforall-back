@@ -16,3 +16,24 @@ def create_user(db: Session, username: str, password: str, email: str):
     db.commit()
     db.refresh(user)
     return user
+
+# pasa el contexto de la contraseña y se verifica si la contraseña es correcta.
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+#verifica la contraseña hashada y la contraseña en texto plano.
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+#verifica si el usuario existe y si la contraseña es correcta.
+def authenticate_user(db: Session, username: str, password: str):
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        return {"message": "Usuario no encontrado", "status": "error"}
+    if not verify_password(password, user.password):
+        return {"message": "Contraseña incorrecta", "status": "error"}
+    return {
+        "message": "Inicio de sesión exitoso",
+        "status": "success",
+    }
+
+
