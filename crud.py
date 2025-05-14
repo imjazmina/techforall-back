@@ -31,8 +31,7 @@ def authenticate_user(db: Session, username: str, password: str):
         return {"message": "Usuario no encontrado", "status": "error"}
     if not verify_password(password, user.password):
         return {"message": "Contraseña incorrecta", "status": "error"}
-    return  
-    {
+    return {
         "message": "Inicio de sesión exitoso",
         "status": "success",
     }
