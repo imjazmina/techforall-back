@@ -28,7 +28,7 @@ def init_db():
         else:
             print("El usuario admin ya existe.")# si el usuario ya existe, no deberia hacer nada
     finally:
-        session.close()# porque cierrar la sesion al final, aunque haya un error
+        session.close()# porque cerrar la sesion al final, aunque haya un error
 
 if __name__ == "__main__":
     init_db()
