@@ -10,7 +10,16 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./tecno_solidario.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 
 # Crear la clase base de datos para los modelos
-db = declarative_base()
+Base = declarative_base()
+
 
 # Crear una sesión para interactuar con la base de datos
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
