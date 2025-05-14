@@ -15,7 +15,7 @@ def registrar_usuario(user: UserCreate, db: Session = Depends(get_db)):
     return nuevo_usuario
 
 
-@router.post("/usuarios/login")
+@router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     authenticated_user = authenticate_user(db, user.username, user.password)
     if not authenticated_user:
