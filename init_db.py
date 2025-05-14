@@ -1,34 +1,34 @@
 from sqlalchemy.orm import Session
-from models import User, db
+from models import User, Base 
 from database import engine
 from utils import get_password_hash
 
-# Crear la tabla en la base de datos si no existen
-db.metadata.create_all(bind=engine)
+# Crear las tablas si no existen
+Base.metadata.create_all(bind=engine)
 
-# Función para agregar el usuario admin por defecto
 def init_db():
-    db = Session(bind=engine)
+    session = Session(bind=engine)
     try:
         # Verificar si ya existe un usuario admin
-        user_admin = db.query(User).filter(User.email == "admin@admin.com").first()
-        
-        if not user_admin:
-            # Crear el usuario admin si no existe
-            hashed_password = get_password_hash("admin1234")  # Contraseña predeterminada
-            new_user = User(
-                email="admin@admin.com",
+        admin_email = "admin@admin.com"
+        existing_admin = session.query(User).filter(User.email == admin_email).first()
+
+        if not existing_admin:
+            hashed_password = get_password_hash("admin1234")
+            new_admin = User(
+                email=admin_email,
                 password=hashed_password,
-                full_name="Administrador",
-                is_admin=True
+                username="admin",
+                is_admin=True,
+                is_active=True
             )
-            db.add(new_user)
-            db.commit()
-            print("Usuario admin creado.")
+            session.add(new_admin)
+            session.commit()
+            print("Usuario admin creado correctamente.")# enviar mensaje de exito al front
         else:
-            print("El usuario admin ya existe.")
+            print("El usuario admin ya existe.")# si el usuario ya existe, no deberia hacer nada
     finally:
-        db.close()
+        session.close()# porque cierrar la sesion al final, aunque haya un error
 
 if __name__ == "__main__":
     init_db()
