@@ -1,3 +1,5 @@
+<!--## Instalar python y pip-->
+
 ## Instalar y activar el entorno virtual 
 
 **Linux/Mac**
@@ -11,4 +13,7 @@
 - pip install fastapi uvicorn sqlalchemy sqlite<br>
   o <br>
 - pip install -r requirements.txt
+
+## Levantar el proyecto
+- uvicorn main:app --reload 
 
