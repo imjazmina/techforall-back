@@ -27,6 +27,12 @@ def verify_password(plain_password, hashed_password):
 #verifica si el usuario existe y si la contraseña es correcta.
 def authenticate_user(db: Session, username: str, password: str):
     user = db.query(User).filter(User.username == username).first()
+<<<<<<< HEAD
+    # Si el usuario no existe o la contraseña es incorrecta, retorna None
+    if not user or not verify_password(password, user.password):
+        return None  # Solo retorna None si falla
+    return user
+=======
     if not user:
         return {"message": "Usuario no encontrado", "status": "error"}
     if not verify_password(password, user.password):
@@ -35,5 +41,6 @@ def authenticate_user(db: Session, username: str, password: str):
         "message": "Inicio de sesión exitoso",
         "status": "success",
     }
+>>>>>>> bfba299a809000a3efe72eb66e33455555c6f807
 
 

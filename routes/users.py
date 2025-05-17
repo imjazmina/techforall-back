@@ -14,12 +14,15 @@ def registrar_usuario(user: UserCreate, db: Session = Depends(get_db)):
     nuevo_usuario = create_user(db, user.username, user.password, user.email)
     return nuevo_usuario
 
-
-@router.post("/usuarios/login")
+@router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     authenticated_user = authenticate_user(db, user.username, user.password)
-    if not authenticated_user:
-        raise HTTPException(status_code=401, detail="Credenciales inválidas")
+    
+    if authenticated_user is None:
+        raise HTTPException(status_code=401, detail="Usuario no encontrado o credenciales inválidas")
+    
     return {
         "message": "Inicio de sesión exitoso",
+        "username": authenticated_user.username,
+        "is_admin": authenticated_user.is_admin
     }
