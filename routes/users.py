@@ -19,7 +19,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     authenticated_user = authenticate_user(db, user.username, user.password)
     
     if authenticated_user is None:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado o credenciales inválidas")
+        raise HTTPException(status_code=401, detail="Usuario no encontrado o credenciales inválidas")
     
     return {
         "message": "Inicio de sesión exitoso",
